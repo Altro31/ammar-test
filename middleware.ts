@@ -1,6 +1,4 @@
 import {NextRequest, NextResponse} from "next/server";
-import {RequestCookies} from "next/dist/compiled/@edge-runtime/cookies";
-import {cookies} from "next/headers";
 
 export const config = {
     matcher: [

@@ -1,5 +1,4 @@
 import React from 'react'
-import {Prisma} from "@prisma/client";
 import * as UserService from "@/api/services/user"
 
 export default async function HomePage() {
