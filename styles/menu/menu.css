@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    .menu-item-container {
+        @apply flex justify-around items-center text-2xl
+    }
+
+    .menu-item {
+        @apply text-gray-400
+    }
+
+    .menu-item-active {
+        @apply text-black
+    }
+
+    .menu-item b, .menu-item-active b {
+        @apply text-[.7rem] tracking-tighter font-bold leading-none
+    }
+
+    .create-button {
+        @apply bg-black text-white rounded-full relative -top-9 mx-auto p-3
+    }
+
+}
