@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+
+.modal {
+    @apply absolute w-full h-full top-0 bg-gray-100/70
+}
+
+@tailwind utilities;

@@ -1,0 +1,9 @@
+@tailwind base;
+
+*{
+    @apply tracking-tighter font-sans
+}
+
+@tailwind components;
+@tailwind utilities;
+

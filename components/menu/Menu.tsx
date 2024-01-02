@@ -19,7 +19,7 @@ export default function Menu() {
                 </MenuItem>
             </div>
             <div className='menu-item-container basis-1/5'>
-                <Link href='/create' className='create-button'>
+                <Link href='/todo/create' className='create-button'>
                     <GrAdd/>
                 </Link>
             </div>
