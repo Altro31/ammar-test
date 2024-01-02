@@ -17,7 +17,6 @@ export default async function HomePage({searchParams}: Props) {
 
     if (!user) redirect('/')
 
-    const completed = user.todos.filter(todo => todo.done)
     const actives = user.todos.filter(todo => !todo.done)
 
     let todo_count_str = `${actives.length} things`
