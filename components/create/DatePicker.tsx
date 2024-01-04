@@ -14,9 +14,6 @@ export function DatePicker({className}: Props) {
     })
 
     const handleChange = (new_value: DateValueType) => {
-
-        console.log(typeof new_value?.startDate)
-
         setDate(new_value as DateRangeType)
     }
 
@@ -25,6 +22,8 @@ export function DatePicker({className}: Props) {
             value={date}
             onChange={handleChange}
             containerClassName={className}
+            startFrom={new Date()}
+            placeholder='Today'
             inputName='date'
             minDate={new Date()}
             useRange={false}
