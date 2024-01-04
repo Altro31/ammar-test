@@ -11,10 +11,10 @@ export default function Menu() {
     return (
         <div className='absolute bottom-0 flex bg-white w-full p-3 border-t shadow-black shadow-2xl'>
             <div className='menu-item-container basis-2/5'>
-                <MenuItem text='Home' href='/home'>
+                <MenuItem text='Home' href='/dashboard'>
                     <IoMdHome/>
                 </MenuItem>
-                <MenuItem text='Calendar' href='/calendar'>
+                <MenuItem text='Calendar' href='/dashboard/calendar'>
                     <LuCalendar/>
                 </MenuItem>
             </div>
@@ -24,7 +24,7 @@ export default function Menu() {
                 </Link>
             </div>
             <div className='menu-item-container basis-2/5'>
-                <MenuItem text='Account' href='/account'>
+                <MenuItem text='Account' href='/dashboard/account'>
                     <FaUserLarge/>
                 </MenuItem>
             </div>

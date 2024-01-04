@@ -1,6 +1,8 @@
 'use client'
 import React from 'react'
 import {useDecider} from "@/utils/hooks/menu/use_decider";
+import {motion} from 'framer-motion'
+import {log} from "util";
 
 interface Props {
 
@@ -27,17 +29,16 @@ interface DeciderButtonProps {
 
 function DeciderButton({children, completed = false}: DeciderButtonProps) {
 
-    console.log(typeof completed)
-
     const {style, handler} = useDecider(completed)
 
     return style ?
         (
-            <button
+            <motion.button
+                layoutId='decider'
                 onClick={handler}
                 className={`flex-1 font-semibold text-gray-600 p-1 rounded-md decider-active`}>
                 {children}
-            </button>
+            </motion.button>
         ) : (
             <button
                 onClick={handler}

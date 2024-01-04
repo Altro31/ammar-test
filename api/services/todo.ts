@@ -9,7 +9,7 @@ export async function createToDo(formData: FormData) {
     const title = (formData.get('title') as string)
     const description = (formData.get('description') as string)
     const tags = (formData.get('tags') as string).replaceAll(' ', '').split(',').filter(tag => Boolean(tag))
-    const date = new Date(formData.get('date') as string)
+    const date = formData.get('date')? new Date(formData.get('date') as string) : new Date()
     const [hours, minutes] = (formData.get('time') as string).split(':')
     date.setHours(parseInt(hours) || 0, parseInt(minutes) || 0)
 
@@ -23,6 +23,13 @@ export async function createToDo(formData: FormData) {
         }
     })
 
-    revalidatePath('/home')
-    permanentRedirect('/home')
+    revalidatePath('/dashboard')
+    permanentRedirect('/dashboard')
+}
+
+export async function deleteTodo(id: string) {
+
+    await prisma.toDo.delete({where: {id}})
+
+    revalidatePath('/dashboard')
 }
