@@ -3,7 +3,7 @@
 import {prisma} from "@/api/prisma_client/PrismaClient";
 import {revalidatePath} from "next/cache";
 import {permanentRedirect} from "next/navigation";
-import {Prisma, ToDo} from "@prisma/client";
+import {ToDo} from "@prisma/client";
 
 
 export async function createToDo(formData: FormData) {
