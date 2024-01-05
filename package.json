@@ -10,7 +10,8 @@
     "lint": "next lint",
     "generate": "prisma generate --watch",
     "studio": "prisma studio",
-    "push": "prisma db push"
+    "push": "prisma db push",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@nextui-org/react": "2.2.9",
