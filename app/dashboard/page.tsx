@@ -11,13 +11,15 @@ interface Props {
     }
 }
 
+
 export default async function HomePage({searchParams}: Props) {
 
-    const user = await UserService.getCurrentUser()
+    const user = await UserService.getCurrentUser({withToDos: true})
 
     if (!user) redirect('/')
 
     const actives = user.todos.filter(todo => !todo.done)
+    user.todos.filter(todo => todo.done);
 
     let todo_count_str = `${actives.length} things`
     if (actives.length == 0) todo_count_str = 'nothing'
@@ -26,7 +28,7 @@ export default async function HomePage({searchParams}: Props) {
     const greeting = getDayTimeGreeting()
 
     return (
-        <div className='w-[85%] mx-auto mt-2'>
+        <div className='h-full w-[85%] mx-auto mt-2'>
             <h1 className='text-2xl font-semibold my-1'>
                 {greeting}, {user?.name}
             </h1>

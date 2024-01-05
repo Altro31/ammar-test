@@ -12,7 +12,7 @@ export function Providers({children}: Props) {
     const router = useRouter()
 
     return (
-        <NextUIProvider navigate={router.push}>
+        <NextUIProvider navigate={router.push} className='h-full'>
             {children}
         </NextUIProvider>
     )

@@ -9,7 +9,7 @@ import {GrAdd} from "react-icons/gr";
 export default function Menu() {
 
     return (
-        <div className='absolute bottom-0 flex bg-white w-full p-3 border-t shadow-black shadow-2xl'>
+        <div className='fixed bottom-0 flex bg-white w-full p-3 border-t shadow-black shadow-2xl z-20'>
             <div className='menu-item-container basis-2/5'>
                 <MenuItem text='Home' href='/dashboard'>
                     <IoMdHome/>

@@ -1,46 +1,63 @@
 import {ToDo} from '@prisma/client'
 import React from 'react'
-import {compareDatesByDMY} from "@/utils/standalones/date";
 import {Chip} from "@nextui-org/react";
 import {ItemAnimation} from "@/components/home/ItemAnimation";
+import {ToDoListAnimation} from "@/components/home/ToDoListAnimation";
+import {activeToDo, completeToDo} from "@/api/services/todo";
 
 interface Props {
     todos: ToDo[]
-    showCompleted: boolean
+    showCompleted?: boolean
+    overflow?: string
 }
 
-export function ToDoList({todos, showCompleted}: Props) {
+export function ToDoList({todos, showCompleted, overflow = 'overflow-auto'}: Props) {
 
-    const list = todos.filter(todo => showCompleted ? todo.done : !todo.done)
+    let list = todos
+    if (showCompleted != undefined)
+        list = todos.filter(todo => showCompleted ? todo.done : !todo.done)
 
     return (
-        <ul className='my-4 flex flex-col gap-2 overflow-auto max-h-80 scrollbar-hide scroll-smooth'>
-            {list.map(todo => (
-                    <ItemAnimation todo_id={todo.id}>
-                        <div className='basis-1/4 p-1'>
-                            <div className='w-8 h-8 bg-red-500 rounded-md mx-auto'></div>
-                        </div>
+        // Set a key to make 2 different ToDoListAnimations
+        <ToDoListAnimation key={`ToDoListAnimation-${showCompleted}`} overflow={overflow}>
+            {/*Used a fragment here because a list of ReactNodes cannot be passed from server to client*/}
+            <>
+                {list.map(todo => (
+                    <ItemAnimation todo_id={todo.id} key={todo.id}>
+                        {/*Quarter, green or gray*/}
+                        <form className='basis-1/4 p-1'
+                              action={(todo.done ? activeToDo : completeToDo).bind(null, todo.id)}>
+                            <button
+                                className={`w-8 h-8 rounded-md mx-auto border ${showCompleted || todo.done ? 'bg-gray-500 border-gray-700' : 'bg-green-300 border-green-600'}`}
+                            ></button>
+                        </form>
                         <div className='basis-3/4'>
-                            <h3 className='font-bold text-md leading-none'>
+
+                            {/*Title*/}
+                            <h3 className={`font-bold text-md leading-none ${todo.done ? 'line-through' : ''}`}>
                                 {todo.title}
                             </h3>
-                            <div className='text-sm font-semibold'>
-                                {compareDatesByDMY(new Date(), todo.date) == 0
-                                    ? 'Today'
-                                    : todo.date.toLocaleDateString()
-                                }
-                                {' '}
-                                {todo.date.toLocaleTimeString("en-US", {
-                                    hour: 'numeric',
-                                    hour12: true,
-                                    minute: "2-digit",
-                                }).toLocaleLowerCase().replaceAll(' ', '')}
-                            </div>
+
+                            {/*Time (if any)*/}
+                            {todo.hasTime && (
+                                <div className='text-sm font-semibold'>
+                                    {'Today '}
+                                    {todo.date.toLocaleTimeString("en-US", {
+                                        hour: 'numeric',
+                                        hour12: true,
+                                        minute: "2-digit",
+                                    }).toLocaleLowerCase().replaceAll(' ', '')}
+                                </div>
+                            )}
+
+                            {/*Description (if any)*/}
                             {todo.description && (
                                 <p className='text-sm text-gray-400 leading-none'>
                                     {todo.description}
                                 </p>
                             )}
+
+                            {/*Tags*/}
                             {todo.Tags.length > 0 && (
                                 <ul className='p-0.5 flex gap-1'>
                                     {todo.Tags.map(tag => (
@@ -52,8 +69,9 @@ export function ToDoList({todos, showCompleted}: Props) {
                             )}
                         </div>
                     </ItemAnimation>
-                )
-            )}
-        </ul>
+                ))}
+            </>
+        </ToDoListAnimation>
+
     )
 }

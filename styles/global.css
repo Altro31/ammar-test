@@ -1,7 +1,11 @@
 @tailwind base;
 
 *{
-    @apply tracking-tighter font-sans
+    @apply tracking-tighter
+}
+
+html, body {
+    @apply h-full overflow-hidden
 }
 
 @tailwind components;

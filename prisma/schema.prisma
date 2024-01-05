@@ -22,6 +22,7 @@ model ToDo {
   title       String
   description String?
   date        DateTime @default(now())
+  hasTime     Boolean
   done        Boolean? @default(false)
   userEmail   String
   User        User     @relation(fields: [userEmail], references: [email])

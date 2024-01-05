@@ -8,7 +8,7 @@ export default function CreateToDoPage() {
 
     return (
         <Animation
-            className='bg-white w-full h-4/6 self-end rounded-t-3xl border-t shadow-2xl drop-shadow-2xl shadow-black p-2'
+            className='bg-white w-full h-full self-end max-h-[350px] overflow-auto rounded-t-3xl border-t shadow-2xl drop-shadow-2xl shadow-black p-2'
         >
             <h2 className='text-black text-xl font-bold w-10/12 mx-auto my-2'>
                 Add a new task

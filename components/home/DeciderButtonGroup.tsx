@@ -2,7 +2,6 @@
 import React from 'react'
 import {useDecider} from "@/utils/hooks/menu/use_decider";
 import {motion} from 'framer-motion'
-import {log} from "util";
 
 interface Props {
 
@@ -11,7 +10,7 @@ interface Props {
 export function DeciderButtonGroup({}: Props) {
 
     return (
-        <div className='flex w-full justify-center border rounded-md mt-3'>
+        <div className='flex w-full justify-center border rounded-md mt-3 bg-gray-100'>
             <DeciderButton>
                 To Do
             </DeciderButton>
