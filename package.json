@@ -11,7 +11,7 @@
     "generate": "prisma generate --watch",
     "studio": "prisma studio",
     "push": "prisma db push",
-    "postinstall": "prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@nextui-org/react": "2.2.9",
