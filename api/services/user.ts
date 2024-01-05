@@ -1,6 +1,6 @@
 'use server'
 
-import {prisma} from "@/api/prisma_client/PrismaClient";
+import { prisma } from "../prisma_client/PrismaClient"
 
 interface getCurrentUserArgs {
     withToDos?: boolean
