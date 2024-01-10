@@ -7,7 +7,7 @@ import {ToDoList} from "@/components/home/ToDoList";
 
 interface Props {
     searchParams: {
-        completed: boolean
+        completed: string
     }
 }
 
@@ -18,12 +18,13 @@ export default async function HomePage({searchParams}: Props) {
 
     if (!user) redirect('/')
 
-    const actives = user.todos.filter(todo => !todo.done)
-    user.todos.filter(todo => todo.done);
+    const activesCount = user.todos.reduce((prev, curr) => {
+        return curr.done? prev : prev+1
+    }, 0)
 
-    let todo_count_str = `${actives.length} things`
-    if (actives.length == 0) todo_count_str = 'nothing'
-    if (actives.length == 1) todo_count_str = 'only 1 thing'
+    let todo_count_str = `${activesCount} things`
+    if (activesCount == 0) todo_count_str = 'nothing'
+    if (activesCount == 1) todo_count_str = 'only 1 thing'
 
     const greeting = getDayTimeGreeting()
 

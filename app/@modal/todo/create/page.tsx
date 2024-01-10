@@ -7,9 +7,11 @@ import {CreateToDoButton} from "@/components/create/CreateToDoButton";
 
 export default function CreateToDoPage() {
 
+    const today = new Date()
+
     return (
         <Animation
-            className='bg-white w-full h-full self-end max-h-[350px] overflow-auto rounded-t-3xl border-t shadow-2xl drop-shadow-2xl shadow-black p-2'
+            className='z-20 bg-white w-full h-full self-end max-h-[350px] overflow-auto rounded-t-3xl border-t shadow-2xl drop-shadow-2xl shadow-black p-2'
         >
             <h2 className='text-black text-xl font-bold w-10/12 mx-auto my-2'>
                 Add a new task
@@ -18,11 +20,15 @@ export default function CreateToDoPage() {
                 <Input name='title' label='Title' size='sm' autoCapitalize='sentences' isRequired/>
                 <Input name='description' label='Description' size='sm' autoCapitalize='sentences'/>
                 <Input name='tags' label='Tags' size='sm' autoCapitalize='words'/>
-                <div className='flex gap-2'>
-                    <DatePicker/>
+                <div className='flex gap-2 text-black'>
+                    <Input name='date' type='date' size='sm'
+                           defaultValue={today.toLocaleDateString()}
+                           min={today.toLocaleDateString()}
+                           className=''
+                    />
                     <Input name='time' className='basis-2/5' type='time' size='sm'/>
                 </div>
-                <CreateToDoButton />
+                <CreateToDoButton/>
             </form>
         </Animation>
     )

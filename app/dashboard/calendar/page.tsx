@@ -1,7 +1,7 @@
 import React from 'react'
 import {ToDoList} from "@/components/home/ToDoList";
-import {getCurrentUser} from "@/api/services/user";
 import {Calendar} from "@/components/calendar/Calendar";
+import * as ToDoServices from "@/api/services/todo"
 
 interface Props {
     searchParams: {
@@ -12,7 +12,7 @@ interface Props {
 export default async function CalendarPage({searchParams}: Props) {
 
     const date = searchParams.date ? new Date(parseInt(searchParams.date)) : new Date()
-    const user = await getCurrentUser({withToDos: true})
+    const todos = await ToDoServices.todos({user_email:'albe020531@outlook.com', date})
 
     return (
         <div className='h-full w-[85%] mx-auto mt-2 overflow-auto scrollbar-hide'>
@@ -24,7 +24,7 @@ export default async function CalendarPage({searchParams}: Props) {
                 <h2 className='text-xl font-medium sticky top-0 z-10 bg-white/95'>
                     What's on {date.toLocaleDateString()}
                 </h2>
-                <ToDoList todos={user.todos} overflow={'overflow-normal'}/>
+                <ToDoList todos={todos} overflow={'overflow-normal'}/>
             </div>
         </div>
     )

@@ -45,7 +45,8 @@ export async function deleteTodo(id: ToDo["id"]) {
 
         revalidatePath('/dashboard')
         revalidatePath('/dashboard/calendar')
-    } catch (e){}
+    } catch (e) {
+    }
 
 }
 
@@ -63,7 +64,7 @@ export async function completeToDo(id: ToDo["id"]) {
 export async function activeToDo(id: ToDo["id"]) {
 
     const today = new Date()
-    today.setHours(0,0)
+    today.setHours(0, 0)
 
     await prisma.toDo.update({
         where: {id},
@@ -76,4 +77,43 @@ export async function activeToDo(id: ToDo["id"]) {
 
     revalidatePath('/dashboard/calendar')
     revalidatePath('/dashboard')
+}
+
+
+interface ToDosArgs {
+    user_email?: string
+    date?: Date
+}
+
+export async function todos(args?: ToDosArgs) {
+
+    let startDate: Date | undefined = undefined
+    let endDate: Date | undefined = undefined
+
+    if (args?.date) {
+        startDate = new Date(args.date.getFullYear(), args.date.getMonth(), args.date.getDate())
+        endDate = new Date(args.date.getFullYear(), args.date.getMonth(), args.date.getDate() + 1)
+    }
+
+    const res = await prisma.toDo.findMany({
+        where: {
+            userEmail: args?.user_email ? args.user_email : undefined,
+            date: args?.date ? {
+                gte: startDate,
+                lt: endDate
+            } : undefined
+        },
+        orderBy: [
+            {done: 'desc'},
+            {hasTime: 'desc'},
+            {date: 'asc'}
+        ]
+    })
+
+    const today = new Date()
+
+    return res.map(todo => ({
+        ...todo,
+        done: todo.done || (todo.hasTime && todo.date.getTime() - today.getTime() < 0)
+    }))
 }
