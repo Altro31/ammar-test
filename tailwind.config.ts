@@ -6,7 +6,9 @@ const config: Config = {
         './components/**/*.{js,ts,jsx,tsx,mdx}',
         './app/**/*.{js,ts,jsx,tsx,mdx}',
         './node_modules/.pnpm/@nextui-org+theme@2.1.17_tailwindcss@3.4.0/node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx,mdx}',
-        './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx,mdx}'
+        './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx,mdx}',
+        './node_modules/.pnpm/react-tailwindcss-datepicker@1.6.6_dayjs@1.11.10_react@18.2.0/node_modules/react-tailwindcss-datepicker/dist/**/*.{js,ts,jsx,tsx,mdx}',
+        './node_modules/react-tailwindcss-datepicker/dist/**/*.{js,ts,jsx,tsx,mdx}'
     ],
     theme: {
         extend: {
