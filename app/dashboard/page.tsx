@@ -19,7 +19,7 @@ export default async function HomePage({searchParams}: Props) {
     if (!user) redirect('/')
 
     const activesCount = user.todos.reduce((prev, curr) => {
-        return curr.done? prev : prev+1
+        return curr.done ? prev : prev + 1
     }, 0)
 
     let todo_count_str = `${activesCount} things`
@@ -28,16 +28,22 @@ export default async function HomePage({searchParams}: Props) {
 
     const greeting = getDayTimeGreeting()
 
+    const showCompleted = searchParams.completed ?? 'false'
+
     return (
-        <div className='h-full w-[85%] mx-auto mt-2'>
-            <h1 className='text-2xl font-semibold my-1'>
-                {greeting}, {user?.name}
-            </h1>
-            <h2 className='text-medium font-semibold text-gray-700 my-1'>
-                {`We have ${todo_count_str} on the list today`}
-            </h2>
-            <DeciderButtonGroup/>
-            <ToDoList todos={user.todos} showCompleted={searchParams.completed}/>
+        <div className='h-full w-[85%] mx-auto mt-2 lg:mt-5  lg:flex lg:flex-col lg:gap-3'>
+            <div className='lg:border lg:rounded-xl lg:p-3 lg:px-10'>
+                <h1 className='text-2xl font-semibold my-1'>
+                    {greeting}, {user?.name}
+                </h1>
+                <h2 className='text-medium font-semibold text-gray-700 my-1'>
+                    {`We have ${todo_count_str} on the list today`}
+                </h2>
+            </div>
+            <div className='h-full lg:rounded-xl lg:border lg:p-3 lg:px-10 lg:max-h-full'>
+                <DeciderButtonGroup/>
+                <ToDoList todos={user.todos} showCompleted={showCompleted}/>
+            </div>
         </div>
     )
 }

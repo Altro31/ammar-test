@@ -15,12 +15,14 @@ export function ToDoListAnimation({children, overflow}: Props) {
     const handleScroll = () => setDeleteToDo(null)
 
     return (
-        <motion.ul className={`h-full pb-56 mt-2 mb-10 flex flex-col gap-2 scrollbar-hide scroll-smooth ${overflow}`}
-                   onScroll={handleScroll}
-        >
-            <AnimatePresence>
-                {children}
-            </AnimatePresence>
-        </motion.ul>
+        <div className='h-full max-h-full mt-2'>
+            <motion.ul className={`flex h-full flex-col gap-2 scrollbar-hide scroll-smooth ${overflow}`}
+                       onScroll={handleScroll}
+            >
+                <AnimatePresence>
+                    {children}
+                </AnimatePresence>
+            </motion.ul>
+        </div>
     )
 }

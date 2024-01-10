@@ -17,9 +17,10 @@ export async function createToDo(formData: FormData) {
     const formTime = formData.get('time') as string
     if (formTime) {
         const [hours, minutes] = formTime.split(':')
-        date.setHours(parseInt(hours), parseInt(minutes))
+        date.setHours(parseInt(hours), parseInt(minutes),0,0)
     } else {
-        date.setHours(0, 0)
+        date.setHours(0,0)
+        date.setMinutes(date.getMinutes()+date.getTimezoneOffset())
     }
 
     await prisma.toDo.create({

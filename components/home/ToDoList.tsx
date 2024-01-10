@@ -15,10 +15,14 @@ interface Props {
 export function ToDoList({todos, showCompleted, overflow = 'overflow-auto'}: Props) {
 
     let list = todos.filter(todo => {
-        return showCompleted === 'true' ? todo.done : !todo.done
-    })
 
-    console.log(list)
+        if (showCompleted === 'true')
+            return todo.done
+        else if (showCompleted === 'false')
+            return !todo.done
+
+        return true
+    })
 
     return (
         // Set a key to make 2 different ToDoListAnimations
@@ -32,7 +36,7 @@ export function ToDoList({todos, showCompleted, overflow = 'overflow-auto'}: Pro
                             <form className='basis-1/4 p-1'
                                   action={(todo.done ? activeToDo : completeToDo).bind(null, todo.id)}>
                                 <button
-                                    className={`w-8 h-8 rounded-md mx-auto border ${showCompleted || todo.done ? 'bg-gray-500 border-gray-700' : 'bg-green-300 border-green-600'}`}
+                                    className={`w-8 h-8 rounded-md mx-auto border ${todo.done ? 'bg-gray-500 border-gray-700' : 'bg-green-300 border-green-600'}`}
                                 ></button>
                             </form>
                             <div className='basis-3/4'>
