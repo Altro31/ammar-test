@@ -3,6 +3,7 @@ import {Input} from "@nextui-org/react";
 import {DatePicker} from "components/components/create/DatePicker";
 import {createToDo} from "@/api/services/todo";
 import {Animation} from "@/app/@modal/todo/create/Animation";
+import {CreateToDoButton} from "@/components/create/CreateToDoButton";
 
 export default function CreateToDoPage() {
 
@@ -21,9 +22,7 @@ export default function CreateToDoPage() {
                     <DatePicker/>
                     <Input name='time' className='basis-2/5' type='time' size='sm'/>
                 </div>
-                <button className='bg-black text-white p-2 w-full'>
-                    Create new task
-                </button>
+                <CreateToDoButton />
             </form>
         </Animation>
     )
