@@ -4,6 +4,8 @@ import {getDayTimeGreeting} from "@/utils/standalones/date";
 import {redirect} from "next/navigation";
 import {DeciderButtonGroup} from "@/components/home/DeciderButtonGroup";
 import {ToDoList} from "@/components/home/ToDoList";
+import Image from "next/image";
+import {Avatar} from "@nextui-org/react";
 
 interface Props {
     searchParams: {
@@ -31,19 +33,27 @@ export default async function HomePage({searchParams}: Props) {
     const showCompleted = searchParams.completed ?? 'false'
 
     return (
-        <div className='h-full w-[85%] mx-auto mt-2 lg:mt-5  lg:flex lg:flex-col lg:gap-3'>
-            <div className='lg:border lg:rounded-xl lg:p-3 lg:px-10'>
-                <h1 className='text-2xl font-semibold my-1'>
-                    {greeting}, {user?.name}
-                </h1>
-                <h2 className='text-medium font-semibold text-gray-700 my-1'>
-                    {`We have ${todo_count_str} on the list today`}
-                </h2>
-            </div>
-            <div className='h-full lg:rounded-xl lg:border lg:p-3 lg:px-10 lg:max-h-full'>
-                <DeciderButtonGroup/>
-                <ToDoList todos={user.todos} showCompleted={showCompleted}/>
-            </div>
+        <div className='w-[85%] mx-auto mt-2 lg:mt-5 lg:flex lg:flex-col lg:gap-3'>
+            <section className='lg:flex lg:border lg:rounded-xl lg:p-3 lg:px-10 w-full justify-between'>
+                <div>
+                    <h1 className='text-2xl font-semibold my-1'>
+                        {greeting}, {user?.name}
+                    </h1>
+                    <h2 className='text-medium font-semibold text-gray-700 my-1'>
+                        {`We have ${todo_count_str} on the list today`}
+                    </h2>
+                </div>
+                <Avatar src={undefined} alt={user.name} size={"lg"}
+                        ImgComponent={Image}
+                        className='hidden lg:block self-center'
+                />
+            </section>
+            <section className='h-full lg:rounded-xl lg:border lg:p-3 lg:px-10 lg:max-h-full'>
+                <div className='flex flex-col h-full lg:w-4/6 lg:mx-auto'>
+                    <DeciderButtonGroup/>
+                    <ToDoList todos={user.todos} showCompleted={showCompleted}/>
+                </div>
+            </section>
         </div>
     )
 }

@@ -6,17 +6,18 @@ import {useDeleteToDo} from "@/utils/store/use_delete_todo";
 interface Props {
     children: React.ReactNode
     overflow: string
+    ulClassName?: string
 }
 
-export function ToDoListAnimation({children, overflow}: Props) {
+export function ToDoListAnimation({children, overflow, ulClassName}: Props) {
 
     const {setDeleteToDo} = useDeleteToDo()
 
     const handleScroll = () => setDeleteToDo(null)
 
     return (
-        <div className='h-full max-h-full mt-2'>
-            <motion.ul className={`flex h-full flex-col gap-2 scrollbar-hide scroll-smooth ${overflow}`}
+        <div className='h-96 w-full mt-2 overflow-auto scrollbar-hide scroll-smooth'>
+            <motion.ul className={`h-full w-full flex flex-col gap-2 mb-7 ${ulClassName}`}
                        onScroll={handleScroll}
             >
                 <AnimatePresence>

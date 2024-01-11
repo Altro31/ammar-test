@@ -4,6 +4,7 @@ import {prisma} from "@/api/prisma_client/PrismaClient";
 import {revalidatePath} from "next/cache";
 import {permanentRedirect} from "next/navigation";
 import {ToDo} from "@prisma/client";
+import {ToDoServices} from ".";
 
 
 export async function createToDo(formData: FormData) {
@@ -17,18 +18,15 @@ export async function createToDo(formData: FormData) {
     const formTime = formData.get('time') as string
     if (formTime) {
         const [hours, minutes] = formTime.split(':')
-        date.setHours(parseInt(hours), parseInt(minutes),0,0)
-    } else {
-        date.setHours(0,0)
-        date.setMinutes(date.getMinutes()+date.getTimezoneOffset())
+        date.setHours(parseInt(hours), parseInt(minutes), 0, 1)
     }
 
     await prisma.toDo.create({
         data: {
-            title,
-            description,
+            title: title,
+            description: description,
             Tags: tags,
-            date,
+            date: date,
             User: {connect: {email: 'albe020531@outlook.com'}},
             hasTime: Boolean(formTime)
         }
@@ -65,7 +63,9 @@ export async function completeToDo(id: ToDo["id"]) {
 export async function activeToDo(id: ToDo["id"]) {
 
     const today = new Date()
+    console.log(today)
     today.setHours(0, 0)
+    console.log(today)
 
     await prisma.toDo.update({
         where: {id},
@@ -96,6 +96,7 @@ export async function todos(args?: ToDosArgs) {
         endDate = new Date(args.date.getFullYear(), args.date.getMonth(), args.date.getDate() + 1)
     }
 
+
     const res = await prisma.toDo.findMany({
         where: {
             userEmail: args?.user_email ? args.user_email : undefined,
@@ -117,4 +118,19 @@ export async function todos(args?: ToDosArgs) {
         ...todo,
         done: todo.done || (todo.hasTime && todo.date.getTime() - today.getTime() < 0)
     }))
+}
+
+export async function countToDos(user_email: string) {
+    const todos = await ToDoServices.todos({user_email})
+
+    const res = {
+        actives: 0,
+        completed: 0
+    }
+
+    todos.forEach((todo => {
+        res[todo.done ? "completed" : "actives"] += 1
+    }))
+
+    return res
 }

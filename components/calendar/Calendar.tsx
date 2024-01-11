@@ -5,32 +5,40 @@ import {DaysOfWeek} from "@/components/calendar/DaysOfWeek";
 
 interface Props {
     date: Date
+    className?: string
 }
 
-export function Calendar({date}: Props) {
+export async function Calendar({date, className}: Props) {
 
+    //to date
     const new_date = new Date(date)
-    new_date.setDate(1)
+
+    //1st day of this month
+    new_date.setDate(0)
+
+    //Day of week of the 1st date of this month
     let day_of_week = new_date.getDay()
 
-    new_date.setMonth(new_date.getMonth() + 1)
-    new_date.setDate(new_date.getDate() - 1)
+    //Las day of this month
+    new_date.setMonth(new_date.getMonth() + 2, -1)
+    const last_day = new_date.getDate() + 1
 
-    const max = new_date.getDate() + day_of_week
+    //Fill unused days
     let list: number[] = []
     for (let i = 0; i < day_of_week; i++) {
         list[i] = 0
     }
 
-    for (let i = day_of_week + 1; i <= max; i++) {
-        list[i] = i - day_of_week
+    //Fill day that will be used
+    for (let i = 1; i <= last_day; i++) {
+        list[i + day_of_week - 1] = i
     }
 
     return (
-        <div>
+        <div className={className}>
             <CalendarHeader date={date}/>
             <form className='grid grid-cols-7 mt-3 gap-2'>
-                <DaysOfWeek />
+                <DaysOfWeek/>
                 {list.map((day, i) => (
                     <Day date={date} day={day} key={date.getTime() + i}/>
                 ))}

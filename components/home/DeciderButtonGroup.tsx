@@ -10,7 +10,7 @@ interface Props {
 export function DeciderButtonGroup({}: Props) {
 
     return (
-        <div className='flex w-full justify-center border rounded-md mt-3 bg-gray-100'>
+        <div className='flex w-full justify-center border rounded-md mt-3 bg-gray-100 lg:pr-1'>
             <DeciderButton>
                 To Do
             </DeciderButton>

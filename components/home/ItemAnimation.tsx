@@ -14,20 +14,21 @@ interface Props {
 export function ItemAnimation({children, todo_id}: Props) {
 
     const ref = useRef(null);
-    const {isDeleting, dragEndHandler} = useToDoAnimation(ref)
+    const {isDeleting, dragEndHandler,clickHandler} = useToDoAnimation(ref)
 
     let className = "relative left-0"
     if (isDeleting) className = "relative -left-20"
 
     return (
         <motion.li
-            className={`p-0.5 pb-1 border shadow-md flex rounded-lg ${className} relative`}
+            className={`p-0.5 pb-1 border shadow-md flex rounded-lg ${className} relative z-index`}
             key={todo_id}
             layout
             drag={"x"}
             dragSnapToOrigin
             dragConstraints={{right: 0, left: 0}}
             onDragEnd={dragEndHandler}
+            onClick={clickHandler}
             ref={ref}
 
             animate={{

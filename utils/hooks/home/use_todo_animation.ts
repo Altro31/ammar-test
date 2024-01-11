@@ -21,10 +21,17 @@ export function useToDoAnimation(ref: React.MutableRefObject<any>) {
         setDeleteToDo(null)
     }
 
+    const clickHandler: React.MouseEventHandler<HTMLLIElement> = (e) => {
+        const target = e.currentTarget
+        if (isDeleting) return setDeleteToDo(null)
+        setDeleteToDo(target)
+    }
+
 
     return {
         isDeleting,
         isCompleting,
-        dragEndHandler
+        dragEndHandler,
+        clickHandler
     }
 }

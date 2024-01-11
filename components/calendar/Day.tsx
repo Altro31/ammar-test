@@ -15,7 +15,7 @@ export async function Day({date, day}: Props) {
     const isActive = new Date(new_date).getTime() - new Date(date).getTime() == 0
 
     return (
-        <button disabled={!Boolean(day)} formAction={changeDate.bind(null, new_date)}
+        <button disabled={isActive || !day} formAction={changeDate.bind(null, new_date)}
                 className={`text-md ${isActive ? 'bg-gray-300' : ''}`}
         >
             {day ? day : null}

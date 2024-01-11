@@ -12,13 +12,14 @@ export async function Aside({}: Props) {
     tomorrow.setDate(tomorrow.getDate() + 1)
 
     const todos = await ToDoServices.todos({user_email: 'albe020531@outlook.com', date: tomorrow})
-
     return (
-        <div className='hidden lg:block mt-5 ml-5 border px-8 py-3 rounded-xl'>
+        <aside className='hidden lg:block mt-5 ml-5 border px-8 py-3 rounded-xl basis-2/5'>
             <h2 className='text-xl font-medium sticky top-0 z-10 bg-white/95'>
                 What's on Tomorrow
             </h2>
-            <ToDoList todos={todos} overflow={'overflow-normal'} showCompleted={'false'}/>
-        </div>
+            <ToDoList todos={todos} overflow={'overflow-normal'} showCompleted={'false'}
+                      ulClassName='mb-0'
+            />
+        </aside>
     )
 }

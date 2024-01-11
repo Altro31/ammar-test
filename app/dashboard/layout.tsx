@@ -12,7 +12,7 @@ interface Props {
 export default function ToDoRelatedLayout({children}: Props) {
 
     return (
-        <div className='lg:flex lg:px-16 lg:py-2 lg:h-full'>
+        <div className='lg:flex lg:px-16 lg:pt-4 lg:pb-10 lg:h-full lg:gap-2'>
             {children}
             <Aside />
             <Menu/>

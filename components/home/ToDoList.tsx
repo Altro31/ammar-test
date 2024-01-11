@@ -10,9 +10,10 @@ interface Props {
     todos: ToDo[]
     showCompleted?: string
     overflow?: string
+    ulClassName?: string
 }
 
-export function ToDoList({todos, showCompleted, overflow = 'overflow-auto'}: Props) {
+export function ToDoList({todos, showCompleted, overflow = 'overflow-auto', ulClassName}: Props) {
 
     let list = todos.filter(todo => {
 
@@ -26,7 +27,8 @@ export function ToDoList({todos, showCompleted, overflow = 'overflow-auto'}: Pro
 
     return (
         // Set a key to make 2 different ToDoListAnimations
-        <ToDoListAnimation key={`ToDoListAnimation-${showCompleted === 'true'}`} overflow={overflow}>
+        <ToDoListAnimation key={`ToDoListAnimation-${showCompleted === 'true'}`} overflow={overflow}
+                           ulClassName={ulClassName}>
             {/*Used a fragment here because a list of ReactNodes cannot be passed from server to client*/}
             <>
                 {list.length > 0

@@ -12,19 +12,19 @@ interface Props {
 export default async function CalendarPage({searchParams}: Props) {
 
     const date = searchParams.date ? new Date(parseInt(searchParams.date)) : new Date()
-    const todos = await ToDoServices.todos({user_email:'albe020531@outlook.com', date})
+    const todos = await ToDoServices.todos({user_email: 'albe020531@outlook.com', date})
 
     return (
-        <div className='h-full w-[85%] mx-auto mt-2 overflow-auto scrollbar-hide'>
+        <div className='h-full w-[85%] mx-auto mt-2 overflow-auto scrollbar-hide lg:border lg:rounded-xl lg:py-3 lg:mt-5 lg:px-8'>
             <h1 className='text-2xl font-semibold my-1'>
                 Calendar
             </h1>
-            <Calendar date={date}/>
+            <Calendar date={date} className='lg:w-96'/>
             <div className='mt-5 mb-28'>
                 <h2 className='text-xl font-medium sticky top-0 z-10 bg-white/95'>
                     What's on {date.toLocaleDateString()}
                 </h2>
-                <ToDoList todos={todos} overflow={'overflow-normal'}/>
+                <ToDoList todos={todos} overflow={'overflow-normal'} key={searchParams.date}/>
             </div>
         </div>
     )
